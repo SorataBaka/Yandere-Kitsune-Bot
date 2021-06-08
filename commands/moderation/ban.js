@@ -15,9 +15,7 @@ module.exports = class ModerationCommand extends commando.Command {
     async run(message, args){
         if (message.mentions.users.size == 0) return message.reply("There is noone to ban!")
         const mentionedlength = message.mentions.users.size
-        const argsLength = args.length
-        const cutLength = argsLength - mentionedlength
-        const banReason = args.slice(mentionedlength, cutLength+1).join(' ')
+        const banReason = args.slice(mentionedlength).join(' ')
         
         const mentionedMembers = message.mentions.users
         mentionedMembers.forEach(function (snowflake){
