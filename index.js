@@ -4,9 +4,12 @@ const express = require('express')
 const server = new express()
 const fs = require('fs')
 require('dotenv').config();
+const mongoose = require('mongoose')
+const guildData = require('./schema/parentschema/parentGuildData')
 
 const { token } = process.env;
 const { prefix } = process.env;
+const { URI } = process.env;
 
 const client = new commando.CommandoClient({
     owner: [
@@ -21,10 +24,22 @@ server.all('/', (req, res) => {
 //login to discord client
 client.login(token)
 client.on('ready', message => {
-    server.listen(3000, () => {
+    server.listen(3000, async() => {
         console.log("Server is now up and running")
+        mongoose.connect(URI, {useNewUrlParser: true, useUnifiedTopology: true})
+        mongoose.set('useFindAndModify', false)
+        client.guilds.cache.forEach(async value => {
+            await guildData.findOneAndUpdate({
+                _id: value.id
+            },{ 
+                _id: value.id,
+            },{  
+                upsert: true
+            })
+        })
         //notify bot online
         console.log('Bot is now Online')
+
         //console logging commands
         fs.readdirSync('./commands').forEach(dirs => {
             const commandDirectory = fs.readdirSync(`./commands/${dirs}`).filter(files => files.endsWith('.js'))
@@ -37,9 +52,11 @@ client.on('ready', message => {
             .registerGroups([
                 ['moderations', 'Moderation Commands'],
                 ['nsfw', 'NSFW Images Commands'],
-                ['imagegeneration', "Generates fun images"]
+                ['imagegeneration', "Generates fun images"],
+                ['utility', "Server Utilities"]
             ])
             .registerCommandsIn(path.join(__dirname, './commands'))
             .registerDefaults()
+
         })
 })

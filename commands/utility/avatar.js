@@ -5,7 +5,7 @@ module.exports = class ImageGeneration extends commando.Command{
     constructor(client){
         super(client, {
             name: 'avatar',
-            group: 'imagegeneration',
+            group: 'utility',
             memberName: 'av',
             description: 'Displays user avatar',
             argsType: 'multiple',

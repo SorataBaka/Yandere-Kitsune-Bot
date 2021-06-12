@@ -5,6 +5,7 @@
     "discord.js-commando": "^0.12.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "mongoose": "^5.12.13",
     "path": "^0.12.7"
   }
 }
