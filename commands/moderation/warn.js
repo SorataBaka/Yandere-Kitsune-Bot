@@ -64,6 +64,8 @@ module.exports = class ModerationCommand extends commando.Command {
 
         const writeWarn = async(memberWarned) => {
             if(message.author.id === memberWarned) return message.reply("You can't warn yourself ba-baka!! (≖_≖ )")
+
+            if(memberWarned === client.user.id) return message.reply("I can't warn myself meanie!!! ( ˘︹˘ )")
             //verify if the user can warn said member
             if(guild.members.cache.get(memberWarned)._roles.length == 0){
                 writeMongo(memberWarned)

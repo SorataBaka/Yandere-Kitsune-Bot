@@ -26,6 +26,8 @@ module.exports = class ModerationCommand extends commando.Command {
 
         if(authorRole < warnedRoleID) return message.reply("You can't remove their warns!")
 
+        if(userWarned === client.user.id) return message.reply("Wh-what?!? I don't have any warns!")
+
         await warnSchema.findOneAndUpdate({
             guildID : guild.id,
             userID: userWarned
