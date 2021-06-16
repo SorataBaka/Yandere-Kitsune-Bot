@@ -1,28 +1,26 @@
 const commando = require ('discord.js-commando')
-const guildData = require('../../schema/parentschema/parentGuildData')
+const staffPing = require('../../schema/childschema/staffRolePing.js')
 const { MessageEmbed } = require('discord.js')
 var active = []
-module.exports = class ModerationCommand extends commando.Command{
+module.exports = class UtilityCommand extends commando.Command{
     constructor(client){
         super(client, {
             name: 'report',
             description: 'Sends a DM to every pingable staff',
             group: 'utility',
             memberName: 'report',
-            argsType: 'multiple',
+            argsType: 'single',
         })
     }
     async run(message, args){
         const { guild, client, channel } = message
-        const databaseQuery = await guildData.find({_id: guild.id})
-
-        if(databaseQuery[0].guildInfo.staffPing === undefined) return message.reply('You have not set a ping role! Please set it first by doing "reportset {rolename} or reportset"')        
-        const pingRole = databaseQuery[0].guildInfo.staffPing.staffPingID
-
-
+        const databaseQuery = await staffPing.find({_id: guild.id})
+        if(databaseQuery[0].roleID === undefined) return message.reply('You have not set a ping role! Please set it first by doing "reportset {rolename} or reportset"')        
+        const pingRole = databaseQuery[0].roleID
         //converts the list of member with role into an array
         var roleMemberList
         const roleList = message.guild.roles.cache.get(pingRole).members;
+        
         roleMemberList = Array.from(roleList, ([name, value]) => (name))
 
         const reportContent = args

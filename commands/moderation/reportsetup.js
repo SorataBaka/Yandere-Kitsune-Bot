@@ -1,6 +1,5 @@
 const commando = require('discord.js-commando')
-// const reportSchema = require('../../schema/childschema/staff-report-schema')
-const guildData = require('../../schema/parentschema/parentGuildData.js')
+const staffPing = require('../../schema/childschema/staffRolePing.js')
 module.exports = class ModerationCommand extends commando.Command{
     constructor(client){
         super(client, {
@@ -15,17 +14,11 @@ module.exports = class ModerationCommand extends commando.Command{
     async run(message, args){
         const { member, guild, channel} = message
         const writeMongo = async(roleNameContent) => {
-            const saveFunction = await new guildData({
+            const saveFunction = await staffPing({
                 _id: guild.id,
-                guildInfo: {
-                    staffPing: {
-                        _id: 'Staff Ping Role ID',
-                        staffPingID : roleNameContent,
-                        author: message.author.id
-                    }
-                }
+                roleID: roleNameContent
             })
-            saveFunction.isNew = false
+            saveFunction.isNew = true
             saveFunction.save(function (err, data){
                 if(err){
                     console.log(err)

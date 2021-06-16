@@ -28,15 +28,6 @@ client.on('ready', message => {
         console.log("Server is now up and running")
         mongoose.connect(URI, {useNewUrlParser: true, useUnifiedTopology: true})
         mongoose.set('useFindAndModify', false)
-        client.guilds.cache.forEach(async value => {
-            await guildData.findOneAndUpdate({
-                _id: value.id
-            },{ 
-                _id: value.id,
-            },{  
-                upsert: true
-            })
-        })
         //notify bot online
         console.log('Bot is now Online')
 
@@ -59,4 +50,15 @@ client.on('ready', message => {
             .registerDefaults()
 
         })
+})
+client.on('guildCreate', function(){
+    client.guilds.cache.forEach(async value => {
+        await guildData.findOneAndUpdate({
+            _id: value.id
+        },{ 
+            _id: value.id,
+        },{  
+            upsert: true
+        })
+    })
 })

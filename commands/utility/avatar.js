@@ -1,7 +1,7 @@
 const commando = require('discord.js-commando')
 const { MessageEmbed } = require('discord.js')
 const DIG = require('discord-image-generation')
-module.exports = class ImageGeneration extends commando.Command{
+module.exports = class UtilityCommand extends commando.Command{
     constructor(client){
         super(client, {
             name: 'avatar',
