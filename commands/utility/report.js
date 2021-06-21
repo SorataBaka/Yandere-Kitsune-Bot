@@ -15,8 +15,11 @@ module.exports = class UtilityCommand extends commando.Command{
     async run(message, args){
         const { guild, client, channel } = message
         const databaseQuery = await staffPing.find({_id: guild.id})
-        if(databaseQuery[0].roleID === undefined) return message.reply('You have not set a ping role! Please set it first by doing "reportset {rolename} or reportset"')        
+        if(databaseQuery[0].roleID === undefined) return message.reply('You have not set a ping role! Please set it first by doing "reportset {rolename} or reportset"')
         const pingRole = databaseQuery[0].roleID
+
+        if(!guild.roles.cache.get(pingRole)) return message.channel.send("The ping role has been deleted! I can't send the message.")
+
         //converts the list of member with role into an array
         var roleMemberList
         const roleList = message.guild.roles.cache.get(pingRole).members;

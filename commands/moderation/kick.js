@@ -13,6 +13,7 @@ module.exports = class ModerationCommand extends commando.Command {
         })
     }
     async run(message, args){
+        const { guild, client } = message
         if (message.mentions.users.size == 0) return message.reply("There is noone to kick!")
 
         const mentionedlength = message.mentions.users.size
@@ -25,10 +26,18 @@ module.exports = class ModerationCommand extends commando.Command {
 
             if(message.client.user.id === getUserObject.user.id) return message.reply("I can't kick myself, meanie!!! >:/")
             if(getUserObject == undefined) return message.reply("I can't find this user!!!")
-            if(message.guild.members.cache.get(snowflake.id).bannable == false) return message.reply("I can't kick "  + userName + '!!! :c they are my superiors!')
+            if(message.guild.members.cache.get(snowflake.id).bannable == false) return message.reply("I can't kick "  + userName + '!!!')
+            if(snowflake.id == guild.ownerID) return message.reply("You can't kick the owner dummy!")
 
-            message.guild.members.cache.get(snowflake.id).kick({reason: banReason + "||Kicked by: " + message.author.username})
-            message.channel.send(userName + " has been Kicked for " + banReason + " by " + message.author.username +" See you later~")
+            guild.members.cache.get(snowflake.id).send(`You have been kicked by ${message.author.tag} for ${banReason}`).then(()=>{
+                message.guild.members.cache.get(snowflake.id).kick({reason: banReason + "||Kicked by: " + message.author.username}).then(async (data, error) =>{
+                    if(error){
+                        message.channel.send("I can't kick this member!")
+                    }else{
+                        message.channel.send(userName + " has been Kicked for " + banReason + " by " + message.author.username +" See you later~")
+                    }
+                })
+            })
         })
     }   
 }

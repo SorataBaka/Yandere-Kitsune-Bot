@@ -1,4 +1,5 @@
 const commando = require('discord.js-commando');
+const discord  = require('discord.js')
 const path = require('path')
 const express = require('express')
 const server = new express()
@@ -18,6 +19,10 @@ const client = new commando.CommandoClient({
     ],
     commandPrefix: prefix,
 })
+
+client.snipes = new discord.Collection()
+client.editsnipes = new discord.Collection()
+
 server.all('/', (req, res) => {
     res.send('Bot is ONLINE')
 })
@@ -38,6 +43,8 @@ client.on('ready', message => {
                 console.log('Loading discord.js command : ' + commandFile)
             }
         })
+
+
         //set commands to discord.js
         client.registry
             .registerGroups([
@@ -48,17 +55,24 @@ client.on('ready', message => {
             ])
             .registerCommandsIn(path.join(__dirname, './commands'))
             .registerDefaults()
+        })
 
+        client.api.applications(client.user.id).guilds('851502835920142336').commands.post({
+            data: {
+                name: 'report',
+                description: "sends a DM to the staffs of the server"
+            }
+        })
+        client.ws.on("INTERACTION_CREATE", async(interaction) =>{
+            console.log(interaction)
         })
 })
-client.on('guildCreate', function(){
-    client.guilds.cache.forEach(async value => {
-        await guildData.findOneAndUpdate({
-            _id: value.id
-        },{ 
-            _id: value.id,
-        },{  
-            upsert: true
-        })
-    })
-})
+
+const events = fs.readdirSync('./events').filter(file => file.endsWith('.js'))
+
+for(const eventFiles of events) {
+    console.log(`Loading discord.js event: ${eventFiles}`)
+    const eventFileSource = require(`./events/${eventFiles}`)
+    client.on(eventFiles.split(".")[0], eventFileSource.bind(null, client))
+}
+

@@ -9,7 +9,7 @@ module.exports = class ModerationCommand extends commando.Command {
             memberName: 'removewarn',
             aliases: ['removewrn', 'removewarn', 'remove'],
             argsType: 'multiple',
-            userPermissions: ['ADMINISTRATOR', 'BAN_MEMBERS', 'KICK_MEMBERS']
+            userPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS']
         })
     }
     async run(message, args){
@@ -23,9 +23,8 @@ module.exports = class ModerationCommand extends commando.Command {
 
         const authorRole = guild.members.cache.get(message.author.id)._roles[0].id
         const warnedRoleID = guild.members.cache.get(userWarned)._roles[0].id
-
+        if(userWarned == guild.ownerID) return message.reply("You can't do that to your boss!")
         if(authorRole < warnedRoleID) return message.reply("You can't remove their warns!")
-
         if(userWarned === client.user.id) return message.reply("Wh-what?!? I don't have any warns!")
 
         await warnSchema.findOneAndUpdate({
