@@ -70,12 +70,14 @@ module.exports = class ModerationCommand extends commando.Command {
 
                 message.channel.send("I have successfully warned this member!!! ^_^")
 
-                guild.members.cache.get(id).send(`You have warned by: ${message.author.username} for ${reasonWarned}`)
+                guild.members.cache.get(id).send(`You have warned by: ${message.author.username} for ${reasonWarned}`).catch(error=>{
+                    console.log(error)
+                })
 
                 const warnLength = await warnSchema.find({guildID: guild.id, userID: id})
 
                 if (warnLength[0].warns.length >= 5) {
-                    guild.members.cache.get(id).send(`You have been banned by: ${message.author.username} for going over the warn limit`).then(async()=>{
+                    guild.members.cache.get(id).send(`You have been banned by: ${message.author.username} for going over the warn limit`).then(async(data, error)=>{
                         guild.members.cache.get(id).ban({days: 0, reason: "This member is banned for going over the warn limit!!! Goodbye! I hope you learned your lesson"}).then(async (data, error)=>{
                             if(error){
                                 message.channel.send("Unfortunately I can't ban this member!")

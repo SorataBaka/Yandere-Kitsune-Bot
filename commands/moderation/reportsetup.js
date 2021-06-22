@@ -8,23 +8,25 @@ module.exports = class ModerationCommand extends commando.Command{
             group: 'moderations',
             memberName: 'reportset',
             argsType: 'single',
+            aliases: ['reportsetup', 'reportsetup'],
             userPermissions: ['ADMINISTRATOR']
         })
     }
     async run(message, args){
         const { member, guild, channel} = message
+        //Main function to write to the database
         const writeMongo = async(roleNameContent) => {
-            const saveFunction = await staffPing({
-                _id: guild.id,
-                roleID: roleNameContent
-            })
-            saveFunction.isNew = true
-            saveFunction.save(function (err, data){
-                if(err){
-                    console.log(err)
-                }else{
-                    console.log(data)
+            await staffPing.findOneAndUpdate({
+                guildID: guild.id
+            },{
+                guildID: guild.id,
+                $set:{
+                    roleID: roleNameContent
                 }
+            },{
+                upsert: true
+            }).catch(err =>{
+                if(err) return message.channel.send("I failed to set up the ping role!")
             })
         }
         if(message.mentions.roles.first() === undefined){

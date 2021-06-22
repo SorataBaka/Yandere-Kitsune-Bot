@@ -66,6 +66,9 @@ client.on('ready', message => {
         client.ws.on("INTERACTION_CREATE", async(interaction) =>{
             console.log(interaction)
         })
+        client.on('error', (error) =>{
+            console.log(error)
+        })
 })
 
 const events = fs.readdirSync('./events').filter(file => file.endsWith('.js'))

@@ -1,6 +1,6 @@
 const commando = require('discord.js-commando')
 const warnSchema = require('../../schema/childschema/warnSchema')
-const{ MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = class ModerationCommand extends commando.Command{
     constructor(client){
