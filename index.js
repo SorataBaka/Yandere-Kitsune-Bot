@@ -6,7 +6,7 @@ const server = new express()
 const fs = require('fs')
 require('dotenv').config();
 const mongoose = require('mongoose')
-const guildData = require('./schema/parentschema/parentGuildData')
+const WOKCommands = require('wokcommands')
 
 const { token } = process.env;
 const { prefix } = process.env;
@@ -43,8 +43,6 @@ client.on('ready', message => {
                 console.log('Loading discord.js command : ' + commandFile)
             }
         })
-
-
         //set commands to discord.js
         client.registry
             .registerGroups([
@@ -55,16 +53,6 @@ client.on('ready', message => {
             ])
             .registerCommandsIn(path.join(__dirname, './commands'))
             .registerDefaults()
-        })
-
-        client.api.applications(client.user.id).guilds('851502835920142336').commands.post({
-            data: {
-                name: 'report',
-                description: "sends a DM to the staffs of the server"
-            }
-        })
-        client.ws.on("INTERACTION_CREATE", async(interaction) =>{
-            console.log(interaction)
         })
         client.on('error', (error) =>{
             console.log(error)
