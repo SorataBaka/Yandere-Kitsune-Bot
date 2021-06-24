@@ -33,5 +33,11 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
         script: |
           sudo -i
-          pwd
+          cd /root
+          cd ../home/running-bots/YandereKitsune
+          git pull origin master
+          npx ci
+          pm2 restart "Yandere Kitsune"
+          exit
+          exit
           exit
