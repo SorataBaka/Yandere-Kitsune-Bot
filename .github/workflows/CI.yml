@@ -31,8 +31,9 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
-        script: cd ~/home/running-bots/YandereKitsune
-                git pull origin master
-                npx ci
-                pm2 restart "Yandere Kitsune"
-                exit
+        script: |
+          cd ~/home/running-bots/YandereKitsune
+          git pull origin master
+          npx ci
+          pm2 restart "Yandere Kitsune"
+          exit
