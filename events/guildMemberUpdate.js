@@ -2,7 +2,7 @@ const guildTokenSchema = require('../schema/childschema/boosttoken.js')
 const { nanoid } = require('nanoid')
 const { MessageEmbed } = require('discord.js')
 const staffPing = require('../schema/childschema/staffRolePing.js')
-
+const { prefix } = process.env;
 
 
 module.exports = async(client, oldMember, newMember)=>{
@@ -45,7 +45,7 @@ module.exports = async(client, oldMember, newMember)=>{
                     .setAuthor('You will be eligible to claim a free custom role from your boost!')
                     .setDescription(`To claim your free role, please reference the tutorial below.`)
                     .addField("Your token is : ", `*${token}*`)
-                    .addField("Claim Role Command : ", `claimrole ${token}`)
+                    .addField("Claim Role Command : ", `${prefix} claimrole ${token}`)
                 guildMemberData.send(boostEmbed).catch(error =>{
                     console.log(error)
                 })

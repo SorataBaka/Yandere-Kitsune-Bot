@@ -6,11 +6,10 @@ const server = new express()
 const fs = require('fs')
 require('dotenv').config();
 const mongoose = require('mongoose')
-const WOKCommands = require('wokcommands')
 
-const { token } = process.env;
-const { prefix } = process.env;
-const { URI } = process.env;
+const token = process.env['token'];
+const prefix = process.env['prefix'];
+const URI = process.env['URI'];
 
 const client = new commando.CommandoClient({
     owner: [
