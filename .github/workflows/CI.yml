@@ -32,8 +32,9 @@ jobs:
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
         script: |
-          sudo /home/running-bots/YandereKitsune
-          sudo git pull origin master
+          sudo -i
+          cd /home/running-bots/YandereKitsune
+          git pull origin master
           sudo npx ci
           sudo pm2 restart "Yandere Kitsune"
           exit
