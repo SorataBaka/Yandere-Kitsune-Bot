@@ -32,6 +32,7 @@ jobs:
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
         script: |
+        sudo -i
           cd /home/running-bots/YandereKitsune
           sudo git pull origin
           sudo npx ci
