@@ -35,7 +35,7 @@ jobs:
           sudo -i
           cd /home/running-bots/YandereKitsune
           sudo git pull origin
-          sudo npx ci
+          sudo npm install
           sudo pm2 restart "Yandere Kitsune"
           exit
           exit
