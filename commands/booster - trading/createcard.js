@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const guildTokenSchema = require('../../schema/childschema/boosttoken.js')
 const claimedSchema = require('../../schema/childschema/claimedroleschema.js')
-
+const staffPing = require('../../schema/childschema/guilddata.js')
 
 module.exports = class TradingCommand extends commando.Command{
   constructor(client){
@@ -19,8 +19,7 @@ module.exports = class TradingCommand extends commando.Command{
     const guildid = guild.id
     const token = args[0]
 
-    
-
+    //check if person already has a card available
 
   }
 }

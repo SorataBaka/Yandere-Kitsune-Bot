@@ -11,7 +11,7 @@ module.exports = class UtilityCommand extends commando.Command {
         super(client,{
             name: 'claimrole',
             description:'Claims the free booster custom role!',
-            group: 'boosterutilities',
+            group: 'utility',
             memberName: 'claimrole',
             argsType: 'single'
         })
