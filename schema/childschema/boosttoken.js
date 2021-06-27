@@ -11,7 +11,9 @@ const guildTokenSchema = mongoose.Schema({
     token:{
         type: String,
         required: true
-    }
+    },
+},{
+    timestamp: true,
 })
 
-module.exports = mongoose.model('Guild-token-schema', guildTokenSchema)
+module.exports = mongoose.model('Tokens', guildTokenSchema)

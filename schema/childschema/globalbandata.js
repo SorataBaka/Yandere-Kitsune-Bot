@@ -18,4 +18,4 @@ const globalBanSchema = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('global-ban-data', globalBanSchema)
+module.exports = mongoose.model('Global_bans', globalBanSchema)

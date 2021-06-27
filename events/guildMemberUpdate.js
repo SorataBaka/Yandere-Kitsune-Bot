@@ -1,4 +1,5 @@
 const guildTokenSchema = require('../schema/childschema/boosttoken.js')
+const claimedSchema = require("../schema/childschema/claimedroleschema.js")
 const { nanoid } = require('nanoid')
 const { MessageEmbed } = require('discord.js')
 const staffPing = require('../schema/childschema/staffRolePing.js')
@@ -52,6 +53,4 @@ module.exports = async(client, oldMember, newMember)=>{
             }
         })
     }
-
-
 }

@@ -33,4 +33,4 @@ const warnSchema = mongoose.Schema({
     warns: [warns]
 })
 
-module.exports = mongoose.model('Client-Warns', warnSchema)
+module.exports = mongoose.model('Guild_warns', warnSchema)

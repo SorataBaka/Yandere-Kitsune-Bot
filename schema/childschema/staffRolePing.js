@@ -12,4 +12,4 @@ const staffPing = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('staffPingID', staffPing)
+module.exports = mongoose.model('Guild_data', staffPing)

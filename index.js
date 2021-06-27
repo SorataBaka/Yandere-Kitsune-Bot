@@ -48,7 +48,9 @@ client.on('ready', message => {
                 ['moderations', 'Moderation Commands'],
                 ['nsfw', 'NSFW Images Commands'],
                 ['imagegeneration', "Generates fun images"],
-                ['utility', "Server Utilities"]
+                ['utility', "Server Utilities"],
+                ['boosterutilities', "Utilities for Boosters"]
+                ['trading', "Role trading system"]
             ])
             .registerCommandsIn(path.join(__dirname, './commands'))
             .registerDefaults()

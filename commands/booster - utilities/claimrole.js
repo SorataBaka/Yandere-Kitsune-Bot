@@ -1,14 +1,17 @@
 const guildTokenSchema = require('../../schema/childschema/boosttoken.js')
 const staffPing = require('../../schema/childschema/staffRolePing.js')
+const claimedSchema = require('../../schema/childschema/claimedroleschema.js')
 const commando = require ('discord.js-commando')
 const { MessageEmbed } = require('discord.js')
+
+
 
 module.exports = class UtilityCommand extends commando.Command {
     constructor(client){
         super(client,{
             name: 'claimrole',
             description:'Claims the free booster custom role!',
-            group: 'utility',
+            group: 'boosterutilities',
             memberName: 'claimrole',
             argsType: 'single'
         })
@@ -70,26 +73,27 @@ module.exports = class UtilityCommand extends commando.Command {
                             color: roleColor,
                             position: boostroleposition + 3
                         }
-                    }).then((data, error)=>{
-                        if(error){
-                            message.reply("i have failed to create the role!")
-                        }else{
-                            const newRoleID = data.id
-                            const newRoleData = guild.roles.cache.get(newRoleID)
-                            message.member.roles.add(newRoleData).then(async(data, error)=>{
-                                if(error){
-                                    message.channel.send("I can't give you the role! Please contact an admin and try again")
-                                }else{
-                                    message.channel.send(" I have created the role for you!")
-                                    await guildTokenSchema.find({guildID : guild.id, userID : message.author.id}).deleteOne()
-                                }
-                            })
-                        }
+                    }).then(async (data, error)=>{
+                        if(error)message.reply("i have failed to create the role!")
+                        const newRoleID = data.id
+                        const newRoleData = guild.roles.cache.get(newRoleID)
+                        const saveClaimed = await claimedSchema({
+                            roleID: data.id,
+                            roleName: data.name,
+                            userID: message.author.id,
+                            guildID: guild.id
+                        })
+                        saveClaimed.isNew = true
+                        saveClaimed.save()
+
+                        message.member.roles.add(newRoleData).then(async(data, error)=>{
+                            if(error) return message.channel.send("I can't give you the role! Please contact an admin and try again")
+                            message.channel.send(" I have created the role for you!")
+                            await guildTokenSchema.find({guildID : guild.id, userID : message.author.id}).deleteOne()
+                        })
                     }).catch(timeout =>{
                         return message.reply("You have timed out! Please try again")
                     })
-
-
                 })
             }).catch(timeout =>{
                 return message.reply("You have timed out! please try again")

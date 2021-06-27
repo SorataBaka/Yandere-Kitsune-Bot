@@ -7,7 +7,7 @@ module.exports = class UtilityCommand extends commando.Command {
         super(client,{
             name: 'gettoken',
             description: 'gets the token for the booster',
-            group: 'utility',
+            group: 'boosterutilities',
             memberName: 'gettoken',
         })
     }
