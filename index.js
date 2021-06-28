@@ -49,8 +49,8 @@ client.on('ready', message => {
                 ['nsfw', 'NSFW Images Commands'],
                 ['imagegeneration', "Generates fun images"],
                 ['utility', "Server Utilities"],
-                ['boosterutilities', "Utilities for Boosters"]
-                ['trading', "Role trading system"]
+                ['boosterutilities', "Utilities for Boosters"],
+                ['trading', "Role trading system"],
             ])
             .registerCommandsIn(path.join(__dirname, './commands'))
             .registerDefaults()

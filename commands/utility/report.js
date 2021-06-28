@@ -1,5 +1,5 @@
 const commando = require ('discord.js-commando')
-const staffPing = require('../../schema/childschema/staffRolePing.js')
+const staffPing = require('../../schema/childschema/guilddata.js')
 const { MessageEmbed } = require('discord.js')
 var active = []
 module.exports = class UtilityCommand extends commando.Command{
