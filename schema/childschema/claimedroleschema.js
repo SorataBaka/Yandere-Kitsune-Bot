@@ -17,11 +17,19 @@ const claimedSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    cardID: {
+        type: String,
+        required: true
+    },
     userID : {
         type: String,
         required: true
     },
     guildID : {
+        type: String,
+        required: true
+    },
+    template: {
         type: String,
         required: true
     }

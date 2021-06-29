@@ -46,7 +46,7 @@ module.exports = async(client, oldMember, newMember)=>{
                     .setAuthor('You will be eligible to claim a free custom role from your boost!')
                     .setDescription(`To claim your free role, please reference the tutorial below.`)
                     .addField("Your token is : ", `*${token}*`)
-                    .addField("Claim Role Command : ", `${prefix} claimrole ${token}`)
+                    .addField("Claim Role Command : ", `${prefix} createcard ${token}`)
                 guildMemberData.send(boostEmbed).catch(error =>{
                     console.log(error)
                 })
