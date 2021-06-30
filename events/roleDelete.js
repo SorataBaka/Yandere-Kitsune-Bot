@@ -29,5 +29,6 @@ module.exports = async(client, role) =>{
         })
       }
       await tradeRequest.find({tradeRoleOffer: roleid}).deleteMany().catch()
+    }
   }
 }
