@@ -12,10 +12,18 @@ const tradeRequest = new mongoose.Schema({
     type: String,
     required: true
   },
+  tradeRoleTarget:{
+    type: String,
+    required: true
+  },
   guildID : {
     type: String,
     required: true
   },
+  tradeID : {
+    type: String,
+    required: true
+  }
 
 })
 

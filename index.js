@@ -18,7 +18,7 @@ const client = new commando.CommandoClient({
     ],
     commandPrefix: prefix,
 })
-
+require('discord-buttons')(client)
 client.snipes = new discord.Collection()
 client.editsnipes = new discord.Collection()
 

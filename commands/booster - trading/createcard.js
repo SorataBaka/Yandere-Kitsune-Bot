@@ -1,7 +1,7 @@
 const commando = require('discord.js-commando')
 const { MessageEmbed } = require('discord.js')
 const guildTokenSchema = require('../../schema/childschema/boosttoken.js')
-const shortid = require('shortid')
+const shortid = require('shortid')  
 const claimedSchema = require('../../schema/childschema/claimedroleschema.js')
 const staffPing = require('../../schema/childschema/guilddata.js')
 var active = false
