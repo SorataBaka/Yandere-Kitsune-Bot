@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const tradeRequest = new mongoose.Schema({
+const tradeRequest = mongoose.Schema({
   tradeAuthor: { 
     type: String,
     required: true
