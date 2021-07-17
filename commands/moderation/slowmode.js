@@ -23,7 +23,9 @@ module.exports = class ModerationCommand extends commando.Command {
         }else{
             const slowmodeTime = args[0]
             const slowmodeReason = args.slice(1).join(' ')
-            message.channel.guild.channels.cache.get(channelID).setRateLimitPerUser(slowmodeTime, slowmodeReason)
+            message.channel.guild.channels.cache.get(channelID).setRateLimitPerUser(slowmodeTime, slowmodeReason).then(data => {
+                if(data) return message.channel.send("I have successfully set the slowmode to " + slowmodeTime + " seconds!")
+            })
         }
     }   
 }

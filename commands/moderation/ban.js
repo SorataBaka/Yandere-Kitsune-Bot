@@ -42,6 +42,7 @@ module.exports = class ModerationCommand extends commando.Command {
                     message.guild.members.cache.get(snowflake.id).ban({days: 0, reason: banReason + "||Banned by: " + message.author.username}).then(async (data, error) =>{
                         if(error){
                             message.channel.send("I can't ban this member!!")
+                            console.log(error)
                         }else{
                             message.channel.send(userName + " has been Banned for " + banReason + " by " + message.author.username + " Buh-Bye~")
                             const mongoSave = await globalBanSchema({

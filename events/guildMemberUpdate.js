@@ -4,7 +4,7 @@ const { nanoid } = require('nanoid')
 const { MessageEmbed } = require('discord.js')
 const staffPing = require('../schema/childschema/guilddata.js')
 const { prefix } = process.env;
-
+const shortid = require('shortid')
 
 module.exports = async(client, oldMember, newMember)=>{
     
@@ -17,7 +17,7 @@ module.exports = async(client, oldMember, newMember)=>{
     const indexOldMember = oldMember._roles.indexOf(boostroleid)
     const indexNewMember = newMember._roles.indexOf(boostroleid)
     if(indexOldMember == -1 && indexNewMember != -1){
-        const token = nanoid()
+        const token = shortid.generate()
         const { guild } = newMember
         
         const boostMemberId = newMember.user.id
@@ -44,7 +44,7 @@ module.exports = async(client, oldMember, newMember)=>{
                 const boostEmbed = new MessageEmbed()
                     .setTitle(`Thank you so much for boosting the server ${boostMemberGuildName}!!!`)
                     .setAuthor('You will be eligible to claim a free custom role from your boost!')
-                    .setDescription(`To claim your free role, please reference the tutorial below.`)
+                    .setDescription(`To claim your free role, please enter the claim role command i have provided in the server you boosted. `)
                     .addField("Your token is : ", `*${token}*`)
                     .addField("Claim Role Command : ", `${prefix} createcard ${token}`)
                 guildMemberData.send(boostEmbed).catch(error =>{

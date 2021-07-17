@@ -31,13 +31,17 @@ module.exports = class TradingCommand extends commando.Command{
     if(roleQuery.length == 0) return message.reply("You don't have a custom role set! Please use your token to make one.")
     const roleId = roleQuery[0].roleID
     const roleData = guild.roles.cache.get(roleId)
+    const rolename = roleData.name
     if(roleData.members.size == 11) return message.reply("You have reached the maximum allowed members for a role!")
 
     //get mentioned member
-    const mentionedMemberID = message.mentions.users.first().id
-    guild.members.cache.get(mentionedMemberID).roles.add(roleData).then((data, error)=>{
+    const mentionedMemberID = message.mentions.users.first()
+    if(!mentionedMemberID) return message.reply("Please mention a member you want to give the role to!")
+    const mentionedmemberid = mentionedMemberID.id
+    
+    guild.members.cache.get(mentionedmemberid).roles.add(roleData).then((data, error)=>{
       if(error) return message.reply("I can't give this member a role!")
-      return message.reply(`I have given <@${mentionedMemberID}> the role <@!${roleId}>!!!`)
+      return message.reply(`I have given <@${mentionedmemberid}> the role ${rolename}!!!`)
     })
   }
 }

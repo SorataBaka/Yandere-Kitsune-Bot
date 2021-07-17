@@ -3,7 +3,7 @@ const commando = require('discord.js-commando')
 const warnSchema = require('../../schema/childschema/warnSchema')
 const globalWarnSchema = require('../../schema/childschema/globalwarndata.js')
 const globalBanSchema = require('../../schema/childschema/globalbandata')
-const { nanoid } = require('nanoid')
+const shortid = require('shortid')
 module.exports = class ModerationCommand extends commando.Command {
     constructor (client) {
         super(client, {
@@ -31,7 +31,7 @@ module.exports = class ModerationCommand extends commando.Command {
         
         const authorWarned = message.author.tag
         const dateWarned = new Date()
-        const warnID = nanoid()
+        const warnID = shortid.generate()
 
         const writeMongo = async(id) =>{
             //if warnable, then execute warn to database

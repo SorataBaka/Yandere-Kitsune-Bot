@@ -10,6 +10,10 @@ module.exports = class UtilityCommand extends commando.Command{
             group: 'utility',
             memberName: 'report',
             argsType: 'single',
+            throttling: {
+                usages: 1,
+                duration: 60
+              }
         })
     }
     async run(message, args){

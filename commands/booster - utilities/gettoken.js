@@ -14,7 +14,8 @@ module.exports = class UtilityCommand extends commando.Command {
     async run(message){
         const guildID = message.guild.id
         const memberID = message.author.id
-
+        
+        const { prefix } = process.env
         const query = await guildTokenSchema.find({guildID : guildID, userID : memberID})
         if(query.length == 0 ) return message.reply("You are not a registered booster or you have claimed your role!")
         
@@ -25,7 +26,7 @@ module.exports = class UtilityCommand extends commando.Command {
             .setAuthor('You will be eligible to claim a free custom role from your boost!')
             .setDescription(`To claim your free role, please reference the tutorial below.`)
             .addField("Your token is : ", `*${token}*`)
-            .addField("Claim Role Command : ", `claimrole ${token}`)
+            .addField("Claim Role Command : ", `${prefix} createcard ${token}`)
         message.reply(boostEmbed)   
     }
 }

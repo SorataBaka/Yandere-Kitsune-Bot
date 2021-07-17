@@ -34,10 +34,12 @@ module.exports = class TradingCommand extends commando.Command{
     if(roleData.members.size == 11) return message.reply("You have reached the maximum allowed members for a role!")
 
     //get mentioned member
-    const mentionedMemberID = message.mentions.users.first().id
-    guild.members.cache.get(mentionedMemberID).roles.remove(roleData).then((data, error)=>{
+    const mentionedMemberID = message.mentions.users.first()
+    if(!mentionedMemberID) return message.reply("Please mention a member you want to take the role from")
+    const mentionedmemberid = mentionedMemberID.id
+    guild.members.cache.get(mentionedmemberid).roles.remove(roleData).then((data, error)=>{
       if(error) return message.reply("I can't give this member a role!")
-      return message.reply(`I have removed the role from <@!${mentionedMemberID}> !!!`)
+      return message.reply(`I have removed the role from <@!${mentionedmemberid}> !!!`)
     })
   }
 }

@@ -4,7 +4,6 @@ const guildTokenSchema = require('../../schema/childschema/boosttoken.js')
 const shortid = require('shortid')  
 const claimedSchema = require('../../schema/childschema/claimedroleschema.js')
 const staffPing = require('../../schema/childschema/guilddata.js')
-var active = false
 const templates = [
   "../../assets/templates/1.png",
   "../../assets/templates/2.png",
@@ -21,11 +20,15 @@ module.exports = class TradingCommand extends commando.Command{
       group: 'trading',
       memberName: 'createcard',
       argsType: 'multiple',
+      throttling: {
+        usages: 1,
+        duration: 60
+      }
     })
   }
   async run(message, args) {
-    if(active === true) return message.reply("Please finish the previous session! Try again.")
     const {guild, client, author} = message
+    
     const authorid = author.id
     const guildid = guild.id
     const token = args[0]
@@ -48,7 +51,6 @@ module.exports = class TradingCommand extends commando.Command{
     if(boostQuery.length == 0) return message.reply("The Booster Role hasn't been set. I can't continue!")
     const boosterID = boostQuery[0].boosterRole
     const rolePosition = guild.roles.cache.get(boosterID).position
-
     //initiate card creation
     const filter = (newMessage) => newMessage.author.id === authorid
     const nameCreation = async() =>{
@@ -58,21 +60,21 @@ module.exports = class TradingCommand extends commando.Command{
         .setDescription("This will be the title thats displayed in your role and card! Choose wisely because you won't be able to change this later~")
         .setFooter("Type 'Cancel' to cancel card and role creation")
       const sent = await message.channel.send(nameEmbed)
-      if(!sent) return message.reply("I'm sorry, we've encountered an issue. Please try again later!")
-      active = true
+      if(!sent) {
+        return message.reply("I'm sorry, we've encountered an issue. Please try again later!")
+      }
       await message.channel.awaitMessages(filter, {
         max: 1,
         time: 60000
       })
       .then(async roleMessage =>{
         if(roleMessage.first().content.toLowerCase() == 'cancel') {
-          active = false
+          
           return message.reply("I have cancelled the card and role creation!")
         }
         name = roleMessage.first().content
         colorCreation()
       }).catch(timeout => {
-        active = false
         return message.reply("You have ran out of time! Please try again.")})
     }
 
@@ -83,20 +85,20 @@ module.exports = class TradingCommand extends commando.Command{
         .addField("Color reference", "https://htmlcolorcodes.com/")
         .setFooter("Type 'Cancel' to cancel card and role creation")
     const sent = await message.channel.send(colorEmbed)
-    if(!sent) return message.reply("I'm sorry, we've encountered an issue. Please try again later!")
+    if(!sent) {
+      return message.reply("I'm sorry, we've encountered an issue. Please try again later!")
+    }
     message.channel.awaitMessages(filter, {
       max: 1,
       time: 60000
     })
     .then(async roleMessage =>{
       if(roleMessage.first().content.toLowerCase() == 'cancel') {
-        active = false
         return message.reply("I have cancelled the card and role creation!")
       }
       color = roleMessage.first().content
       imageCreation()
     }).catch(timeout => {
-      active = false
       return message.reply("You have ran out of time! Please try again.")})   
     }
     const imageCreation = async() => {
@@ -106,20 +108,22 @@ module.exports = class TradingCommand extends commando.Command{
         .addField("WARNING", "Please only use PNG or JPG formatted card. Do not delete your picture after you have sent it as it will cause an error.")
         .setFooter("Type 'Cancel' to cancel card and role creation")
       const sent = await message.channel.send(imageEmbed)
-      if(!sent) return message.reply("I'm sorry, we've encountered an issue. Please try again later!")
+      if(!sent) {
+        return message.reply("I'm sorry, we've encountered an issue. Please try again later!")
+      }
       message.channel.awaitMessages(filter, {
         max: 1,
         time: 60000
       })
       .then(async roleMessage =>{
         if(roleMessage.first().content.toLowerCase() == 'cancel') {
-          active = false
+          
           return message.reply("I have cancelled the card and role creation!")
         }
         //format checking
         if(!roleMessage.first().content){
           const mediaurl = roleMessage.first().attachments.first().url
-          if(mediaurl.endsWith('.png') || mediaurl.endsWith(".jpg")){
+          if(mediaurl.endsWith('.png') ||( mediaurl.endsWith(".jpg") || mediaurl.endsWith(".jpeg"))){
             image = mediaurl
           }else{
             message.reply("Your file is in an invalid format! Please only use PNG or JPG Images. Try again!")
@@ -134,7 +138,6 @@ module.exports = class TradingCommand extends commando.Command{
           return imageCreation()
         }
       }).catch(timeout => {
-        active = false
         return message.reply("You have ran out of time! Please try again.")})
     }
 
@@ -144,20 +147,22 @@ module.exports = class TradingCommand extends commando.Command{
         .setDescription("This will be the description thats displayed on your card! Choose wisely because you won't be able to change this later~")
         .setFooter("Type 'Cancel' to cancel card and role creation")
       const sent = await message.channel.send(descEmbed)
-      if(!sent) return message.reply("I'm sorry, we've encountered an issue. Please try again later!")
+      if(!sent) {
+        return message.reply("I'm sorry, we've encountered an issue. Please try again later!")
+      }
       message.channel.awaitMessages(filter, {
         max: 1,
         time: 60000
       })
       .then(async roleMessage =>{
         if(roleMessage.first().content.toLowerCase() == 'cancel') {
-          active = false
+          
           return message.reply("I have cancelled the card and role creation!")
         }
         desc = roleMessage.first().content
         templateCreation()
       }).catch(timeout => {
-        active = false
+        
         return message.reply("You have ran out of time! Please try again.")})
     }
 
@@ -165,16 +170,19 @@ module.exports = class TradingCommand extends commando.Command{
       const templateEmbed = new MessageEmbed()
         .setTitle("Please choose a template for your card!")
         .setDescription("We have an assortment of templates made by Kitsune. Simply type a number corresponding to the template! Beware that this is a one-time thing. You won't be able to change this later")
+        .setImage("https://cdn.discordapp.com/attachments/851502836478115852/865665338220871712/brochure.png")
         .setFooter("Type 'Cancel' to cancel card and role creation")
       const sent = await message.channel.send(templateEmbed)
-      if(!sent) return message.reply("I'm sorry, we've encountered an issue. Please try again later!")
+      if(!sent) {
+        return message.reply("I'm sorry, we've encountered an issue. Please try again later!")
+      }
       message.channel.awaitMessages(filter, {
         max: 1,
         time: 60000
       })
       .then(async roleMessage =>{
         if(roleMessage.first().content.toLowerCase() == 'cancel') {
-          active = false
+          
           return message.reply("I have cancelled the card and role creation!")
         }
         if(isNaN(roleMessage.first().content)) {
@@ -189,7 +197,6 @@ module.exports = class TradingCommand extends commando.Command{
         cardTemplate = templates[i]
         confirmation()
       }).catch(timeout => {
-        active = false
         console.log(timeout)
         return message.reply("You have ran out of time! Please try again.")})
     }
@@ -199,13 +206,16 @@ module.exports = class TradingCommand extends commando.Command{
       message.channel.send(confirmationEmbed)
       message.channel.awaitMessages(filter, {
         max: 1,
-        time: 60000
+        time: 30
       })
       .then(async confirmationMessage =>{
         if(confirmationMessage.first().content.toLowerCase() == 'confirm'){
           createRole()
-        }else{
+        }else if(confirmationMessage.first().content.toLowerCase() == 'cancel') {
+          
           return message.reply("I Have cancelled the card creation")
+        }else{
+          return confirmation()
         }
       })
     }
@@ -218,13 +228,18 @@ module.exports = class TradingCommand extends commando.Command{
           position: rolePosition + 1
         }
       }).then(async(data, error) => {
-        if(error) return message.reply("I have failed to create a role for you! Please try again later!")
+        if(error) {
+          return message.reply("I have failed to create a role for you! Please try again later!")
+        }
         const roleid = data.id
         const rolename = data.name
         const roledata = guild.roles.cache.get(roleid)
         message.member.roles.add(roledata).then(async(data, error) => {
           if(error) return message.reply("I can't give you the role! Please contact an admin and try again.")
-          await writeMongo(roleid, rolename).then(() => deletetoken()).then(a => {return active = false})
+          message.reply(`I have created the role <@&${roleid}> and given it to you!!`)
+          await writeMongo(roleid, rolename).then(() => deletetoken()).then(a => {
+            return
+          })
         })
       })
     }
@@ -245,13 +260,16 @@ module.exports = class TradingCommand extends commando.Command{
       },{
         upsert: true
       }).then(async(data, error) => {
-        if(error) return message.reply("I have encountered an error! Please contact an admin.")
-        message.reply("I have created a role for you!")
+        if(error) {
+          return message.reply("Your role has been created but I can't save your info to the database! Please contact an admin. ")
+        }
       })
     }
 
     const deletetoken = async() =>{
-      await guildTokenSchema.find({userID: authorid, guildID: guildid}).deleteOne().catch(err => console.log(err))
+      await guildTokenSchema.find({userID: authorid, guildID: guildid}).deleteOne().catch(err => {
+        console.log(err)
+      })
     }
 
     nameCreation()
