@@ -29,6 +29,9 @@ server.all('/', (req, res) => {
 client.login(token)
 client.on('ready', message => {
     server.listen(3000, async() => {
+        client.user.setPresence({activity: {name: "Slashing ようかいs", type: "COMPETING"}, status: 'dnd'})
+            .then(console.log)
+            .catch(console.error)
         console.log("Server is now up and running")
         mongoose.connect(URI, {useNewUrlParser: true, useUnifiedTopology: true})
         mongoose.set('useFindAndModify', false)
