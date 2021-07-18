@@ -22,7 +22,7 @@ module.exports = class TradingCommand extends commando.Command{
       argsType: 'multiple',
       throttling: {
         usages: 1,
-        duration: 60
+        duration: 120,
       }
     })
   }
@@ -206,17 +206,19 @@ module.exports = class TradingCommand extends commando.Command{
       message.channel.send(confirmationEmbed)
       message.channel.awaitMessages(filter, {
         max: 1,
-        time: 30
+        time: 30000
       })
-      .then(async confirmationMessage =>{
+      .then(async confirmationMessage => {
         if(confirmationMessage.first().content.toLowerCase() == 'confirm'){
-          createRole()
+          return createRole()
         }else if(confirmationMessage.first().content.toLowerCase() == 'cancel') {
-          
           return message.reply("I Have cancelled the card creation")
         }else{
           return confirmation()
         }
+      })
+      .catch(error =>{
+        message.reply("You have timed out! Please try again.")
       })
     }
 

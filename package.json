@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "axios": "^0.21.1",
+    "bluebird": "^3.5.1",
     "canvas": "^2.8.0",
     "ci": "^2.1.1",
     "discord-buttons": "^3.2.1",

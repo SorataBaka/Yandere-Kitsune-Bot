@@ -5,7 +5,7 @@ const { MessageEmbed } = require('discord.js')
 const staffPing = require('../schema/childschema/guilddata.js')
 const { prefix } = process.env;
 const shortid = require('shortid')
-
+const axios = require('axios')
 module.exports = async(client, oldMember, newMember)=>{
     
     const query = await staffPing.find({guildID : newMember.guild.id})
@@ -51,6 +51,45 @@ module.exports = async(client, oldMember, newMember)=>{
                     console.log(error)
                 })
             }
+        })
+    }
+
+
+
+
+    if(indexOldMember != -1 && indexNewMember == -1){
+        const { guild } = newMember
+        
+        const boostMemberId = newMember.user.id
+        const guildMemberData = guild.members.cache.get(boostMemberId)
+        const boostMemberGuildId = newMember.guild.id
+        const boostMemberGuildName = newMember.guild.name
+
+        const roledata = await claimedSchema.find({userID : boostMemberId, guildID : boostMemberGuildId})
+        if(roledata.length == 0) return
+        const roleid = roledata[0].roleID
+
+
+        const { token } = process.env
+        await axios.request({
+            method:"DELETE",
+            url:`https://discord.com/api/v8/guilds/${guild.id}/roles/${roleid}`,
+            headers: {
+                "Authorization": `Bot ${token}`
+            }
+        }).catch()
+
+        await guildTokenSchema.find({userID : boostMemberId, guildID : boostMemberGuildId}).deleteMany().then(()=>{
+            
+        })
+
+        await claimedSchema.find({userID : boostMemberId, guildID : boostMemberGuildId}).deleteMany().then(()=>{
+            const expiredEmbed = new MessageEmbed()
+                .setTitle(`Your boost has expired in the server ${boostMemberGuildName}!!!`)
+                .setAuthor('Your tokens and available custom roles has been deleted.')
+                .setDescription(`You won't be able to create a custom role until you boost the server again`)
+                .setTimestamp()
+            guildMemberData.send(expiredEmbed).catch()
         })
     }
 }

@@ -12,11 +12,12 @@ module.exports = class tokeninjection extends commando.Command{
       description: "Gives a token to a booster who doesnt have it",
       group: 'trading',
       memberName: "givetoken",
-      userPermissions: ['BAN_MEMBERS']
+      userPermissions: ['BAN_MEMBERS'],
+      argsType:'single'
     })
   }
 
-  async run(message){
+  async run(message, args){
     const { guild, client, user} = message
     const mentioned = message.mentions.users.first()
     if(!mentioned) return message.reply("Please mention a member you want to give a token to!")
@@ -27,13 +28,13 @@ module.exports = class tokeninjection extends commando.Command{
     const boosterrolequery = await staffPing.find({guildID: guildid})
     if(boosterrolequery.length == 0) return message.reply("You have not set the booster role for this server! Please do 'dere setboostrole {tag booster role}'")
     const roleID = boosterrolequery[0].boosterRole
-
+    
     if(!roleID) return message.reply("You have not set the booster role for this server! Please do 'dere setboostrole {tag booster role}'")
 
     const mentioneddata =  guild.members.cache.get(mentionedid)
     if(!mentioneddata) return message.reply("I can't find the member that you mentioned! Are you sure that the member is still in the server?")
+    console.log(mentioneddata.roles.cache.get(roleID))
     const mentionedroledata = mentioneddata.roles.cache.get(roleID)
-
     if(!mentionedroledata) return message.reply("The member you have mentioned is not a booster of the server! You can only give tokens to boosters.")
 
     const claimedquery = await claimedSchema.find({guildID : guildid, userID : mentionedid})

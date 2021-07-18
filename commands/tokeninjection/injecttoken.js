@@ -5,7 +5,7 @@ const guildTokenSchema = require("../../schema/childschema/boosttoken.js")
 const shortid = require('shortid')
 const { MessageEmbed } = require('discord.js')
 const util = require('util')
-
+const Promise = require("bluebird")
 module.exports = class tokeninjection extends commando.Command{
   constructor(client){
     super(client,{
@@ -13,7 +13,8 @@ module.exports = class tokeninjection extends commando.Command{
       description: "Gives a token to every booster in the server who doesn't have a custom role.",
       group: 'trading',
       memberName: "injecttoken",
-      userPermissions: ['ADMINISTRATOR']
+      userPermissions: ['ADMINISTRATOR'],
+      ownerOnly:true
     })
   }
 
@@ -35,8 +36,13 @@ module.exports = class tokeninjection extends commando.Command{
     const boostrolemembers = boostroledata.members
 
     const token = shortid.generate()
-
+    
     await boostrolemembers.forEach(async(data, snowflake) => {
+      const checkquery = await claimedSchema.find({userID: snowflake, guildID: guild.id})
+      if(checkquery.length != 0){
+        failedwrite.push(snowflake)
+        return message.channel.send(`Member <@${snowflake}> already has an active custom role and would not be given a new token.`)
+      }
       const guildMemberData = guild.members.cache.get(snowflake)
       await guildTokenSchema.findOneAndUpdate({
         userID: snowflake,
@@ -68,7 +74,8 @@ module.exports = class tokeninjection extends commando.Command{
           }
       })
     })
-    message.channel.send(`Successfully injected ${successwrite.length} tokens to ${boostrolemembers.size} and failed to send ${failedDM.length}`) 
-    
+    setTimeout(function(){
+      message.channel.send(`Successfully injected ${successwrite.length} tokens to ${boostrolemembers.size} and failed to send ${failedDM.length}`)
+    }, 10000)   
   } 
 }
