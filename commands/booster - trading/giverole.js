@@ -10,6 +10,7 @@ module.exports = class TradingCommand extends commando.Command{
       group: 'trading',
       memberName: 'giverole',
       argsType: 'single',
+      guildOnly: true
     })
   }
   async run(message, args){

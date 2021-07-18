@@ -7,7 +7,8 @@ module.exports = class TradingCommand extends commando.Command{
       description: 'Lists the members who owns a role',
       group: 'trading',
       memberName: 'listmember',
-      argsType: "single"
+      argsType: "single",
+      guildOnly: true
     })
   }
   async run(message, args){
