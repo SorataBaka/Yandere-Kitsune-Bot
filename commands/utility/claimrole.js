@@ -10,7 +10,8 @@ module.exports = class UtilityCommand extends commando.Command {
             description:'Claims the free booster custom role!',
             group: 'utility',
             memberName: 'claimrole',
-            argsType: 'single'
+            argsType: 'single',
+	    guildOnly: true
         })
     }
     async run(message, args){
