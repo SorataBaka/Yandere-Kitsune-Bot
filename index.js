@@ -18,7 +18,7 @@ const client = new commando.CommandoClient({
     ],
     commandPrefix: prefix,
 })
-
+require('discord-buttons')(client)
 client.snipes = new discord.Collection()
 client.editsnipes = new discord.Collection()
 
@@ -48,7 +48,9 @@ client.on('ready', message => {
                 ['moderations', 'Moderation Commands'],
                 ['nsfw', 'NSFW Images Commands'],
                 ['imagegeneration', "Generates fun images"],
-                ['utility', "Server Utilities"]
+                ['utility', "Server Utilities"],
+                ['boosterutilities', "Utilities for Boosters"],
+                ['trading', "Role trading system"],
             ])
             .registerCommandsIn(path.join(__dirname, './commands'))
             .registerDefaults()

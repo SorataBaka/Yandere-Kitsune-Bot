@@ -29,4 +29,4 @@ const globalWarnSchema = mongoose.Schema({
     warns: [warns]
 })
 
-module.exports = mongoose.model('Global-Client-Warns', globalWarnSchema)
+module.exports = mongoose.model('Global_warns', globalWarnSchema)

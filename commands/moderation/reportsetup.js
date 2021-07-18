@@ -1,5 +1,5 @@
 const commando = require('discord.js-commando')
-const staffPing = require('../../schema/childschema/staffRolePing.js')
+const staffPing = require('../../schema/childschema/guilddata.js')
 module.exports = class ModerationCommand extends commando.Command{
     constructor(client){
         super(client, {

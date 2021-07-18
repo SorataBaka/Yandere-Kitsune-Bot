@@ -23,7 +23,7 @@ module.exports = class UtilityCommand extends commando.Command{
         if(args.length !== 0){
             const avatarURL = message.mentions.users.first().displayAvatarURL({dynamic: true, size: 1024})
             const avatarUser = message.mentions.users.first().username
-            sendEmbed(avatarURL, avatarUser)
+            sendEmbed(avatarURL, avatarUser)    
         }else{
             const avatarURL = message.author.displayAvatarURL({dynamic: true, size: 1024})
             const avatarUser = message.author.username
