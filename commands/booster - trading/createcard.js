@@ -81,7 +81,7 @@ module.exports = class TradingCommand extends commando.Command{
     const colorCreation = async() =>{
       const colorEmbed = new MessageEmbed()
         .setTitle("Please give us the color for your role and card!")
-        .setDescription("This will be the color thats displayed in your role and card! Choose wisely because you won't be able to change this later~")
+        .setDescription("This will be the color thats displayed in your role and card! Choose wisely because you won't be able to change this later~ Example : #FF9693 ")
         .addField("Color reference", "https://htmlcolorcodes.com/")
         .setFooter("Type 'Cancel' to cancel card and role creation")
     const sent = await message.channel.send(colorEmbed)

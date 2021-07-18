@@ -32,7 +32,18 @@ module.exports = class TradingCommand extends commando.Command{
     const roleId = roleQuery[0].roleID
     const roleData = guild.roles.cache.get(roleId)
     const rolename = roleData.name
-    if(roleData.members.size == 11) return message.reply("You have reached the maximum allowed members for a role!")
+
+    var rolelimit = {}
+    const limitquery = await staffPing.find({guildID: guildid})
+    if(limitquery.length == 0) {
+      rolelimit = 15
+    }else if(limitquery[0].roleLimit == undefined){
+      rolelimit = 15
+    }else{
+      rolelimit = limitquery[0].roleLimit
+    }
+
+    if(roleData.members.size >= rolelimit) return message.reply("You have reached the maximum allowed members for a role!")
 
     //get mentioned member
     const mentionedMemberID = message.mentions.users.first()

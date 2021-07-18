@@ -9,6 +9,9 @@ const staffPing = mongoose.Schema({
     },
     boosterRole: {
         type: String,
+    },
+    roleLimit:{
+        type: String
     }
 })
 
