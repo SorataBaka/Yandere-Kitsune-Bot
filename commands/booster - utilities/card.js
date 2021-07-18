@@ -35,6 +35,7 @@ module.exports = class UtilityCommand extends commando.Command{
     await ctx.drawImage(background, 0 , 0 ,1528, 2375)
     ctx.textAlign = `center`;
     ctx.textBaseline = `top`;
+    ctx.font = '80px Noto';
     await ctx.fillText(name, 764, 90 , 1325)
     const buffer = canvas.toBuffer();
     const picture = new MessageAttachment(buffer, 'image.png')
