@@ -23,10 +23,10 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
         script: |
           sudo -i
-          cd /home/running-bots/YandereKitsune
+          cd /home/running-bots/Yanderev2
           sudo git pull origin
           sudo npm install
-          sudo pm2 restart "Yandere Kitsune"
+          sudo pm2 restart "index"
           exit
           exit
           exit
