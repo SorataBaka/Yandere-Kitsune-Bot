@@ -70,13 +70,5 @@ module.exports = class tokeninjection extends commando.Command{
         }
     })
 
-
-
-
-
-
-
-
-
   }
 }

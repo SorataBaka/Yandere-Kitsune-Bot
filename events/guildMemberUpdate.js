@@ -79,9 +79,7 @@ module.exports = async(client, oldMember, newMember)=>{
             }
         }).catch()
 
-        await guildTokenSchema.find({userID : boostMemberId, guildID : boostMemberGuildId}).deleteMany().then(()=>{
-            
-        })
+        await guildTokenSchema.find({userID : boostMemberId, guildID : boostMemberGuildId}).deleteMany().catch()
 
         await claimedSchema.find({userID : boostMemberId, guildID : boostMemberGuildId}).deleteMany().then(()=>{
             const expiredEmbed = new MessageEmbed()
