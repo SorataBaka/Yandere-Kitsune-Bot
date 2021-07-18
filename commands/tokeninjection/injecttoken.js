@@ -14,7 +14,7 @@ module.exports = class tokeninjection extends commando.Command{
       group: 'trading',
       memberName: "injecttoken",
       userPermissions: ['ADMINISTRATOR'],
-      ownerOnly:true
+      ownerOnly:true,
     })
   }
 

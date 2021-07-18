@@ -26,9 +26,8 @@ module.exports = class TradingCommand extends commando.Command{
       .setFooter(`With a total of ${owneramount} members!!`)
       .setColor("#A3EEFF")
       .setTimestamp()
-    roledata.members.forEach((data, i = 1) =>{
-      embed.addField(i, data.user.tag, true)
-      i++
+    roledata.members.forEach((data) =>{
+      embed.addField(`User ID ${data.id}`, data.user.tag, true)
     })
 
     message.channel.send(embed)
