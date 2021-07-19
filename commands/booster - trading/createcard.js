@@ -1,5 +1,5 @@
 const commando = require('discord.js-commando')
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed, MessageAttachment } = require('discord.js')
 const guildTokenSchema = require('../../schema/childschema/boosttoken.js')
 const shortid = require('shortid')  
 const claimedSchema = require('../../schema/childschema/claimedroleschema.js')
@@ -255,30 +255,31 @@ module.exports = class TradingCommand extends commando.Command{
       await ctx.fillText(desc, 791, 1728, 946)
       const buffer = canvas.toBuffer()
       //cdn usage
-      var imagekit = new ImageKit({
-        publicKey : "public_0J3v7HA2CfELfEzLdQOwu7VV4MY=",
-        privateKey : "private_3maKoCEAgQw6nt+lC1wz1UxOu9Q=",
-        urlEndpoint : "https://ik.imagekit.io/yanderekitsune"
-      });
-      await imagekit.upload({
-        file: buffer,
-        fileName: "default.png"
-      }).then(async(response) =>{
-        responseurl = response.url
-        await responseurl
-      }).catch(error =>{
-        console.log(error)
-        return message.reply("I am having some trouble uploading your image. Please try again later!")
-      })
+      // var imagekit = new ImageKit({
+      //   publicKey : "public_0J3v7HA2CfELfEzLdQOwu7VV4MY=",
+      //   privateKey : "private_3maKoCEAgQw6nt+lC1wz1UxOu9Q=",
+      //   urlEndpoint : "https://ik.imagekit.io/yanderekitsune"
+      // });
+      // await imagekit.upload({
+      //   file: buffer,
+      //   fileName: "default.png"
+      // }).then(async(response) =>{
+      //   responseurl = response.url
+      //   await responseurl
+      // }).catch(error =>{
+      //   console.log(error)
+      //   return message.reply("I am having some trouble uploading your image. Please try again later!")
+      // })
       //send the confirmation embed
       const confirmationEmbed = new MessageEmbed()
         .setTitle("Please check the following information.")
         .setDescription("This will be the final card that you receive. Are you sure you want to confirm?")
-        .setImage(responseurl)
         .setFooter("Type Confirm to finish or Cancel to abort")
         .setTimestamp()
         .setColor(`#BDB5B5`)
-      message.reply({embed: confirmationEmbed})
+      const preview = new MessageAttachment(buffer, 'image.png')
+      message.reply(confirmationEmbed)
+      message.channel.send(preview)
       message.channel.awaitMessages(filter, {
         max: 1,
         time: 30000
