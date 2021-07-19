@@ -272,14 +272,15 @@ module.exports = class TradingCommand extends commando.Command{
       // })
       //send the confirmation embed
       const confirmationEmbed = new MessageEmbed()
-        .setTitle("Please check the following information.")
+        .setTitle("Please check above card.")
         .setDescription("This will be the final card that you receive. Are you sure you want to confirm?")
         .setFooter("Type Confirm to finish or Cancel to abort")
         .setTimestamp()
         .setColor(`#BDB5B5`)
       const preview = new MessageAttachment(buffer, 'image.png')
-      message.reply(confirmationEmbed)
-      message.channel.send(preview)
+      message.channel.send(preview).then(()=>{
+        message.channel.send(confirmationEmbed)
+      })  
       message.channel.awaitMessages(filter, {
         max: 1,
         time: 30000
