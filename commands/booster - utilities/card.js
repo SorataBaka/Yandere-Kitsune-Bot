@@ -24,6 +24,9 @@ module.exports = class UtilityCommand extends commando.Command{
     const imageurl = rolequery[0].cardImageURL
     const template = rolequery[0].template
     const description = rolequery[0].description
+    const id = rolequery[0].roleID
+
+
     const name = rolequery[0].roleName
     const canvas = Canvas.createCanvas(1528,2375)
     const ctx = canvas.getContext('2d')
@@ -35,8 +38,12 @@ module.exports = class UtilityCommand extends commando.Command{
     await ctx.drawImage(background, 0 , 0 ,1528, 2375)
     ctx.textAlign = `center`;
     ctx.textBaseline = `top`;
-    ctx.font = '80px Noto';
-    await ctx.fillText(name, 764, 90 , 1325)
+    ctx.font = '90px Noto';
+    await ctx.fillText(name, 764, 70 , 1325)
+    ctx.font = '50px Noto';
+    await ctx.fillText(id, 420, 1432, 646)
+    ctx.font = '70px Noto';
+    await ctx.fillText(description, 791, 1728, 946)
     const buffer = canvas.toBuffer();
     const picture = new MessageAttachment(buffer, 'image.png')
     // var imagekit = new ImageKit({

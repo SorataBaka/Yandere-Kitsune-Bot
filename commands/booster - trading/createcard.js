@@ -238,7 +238,7 @@ module.exports = class TradingCommand extends commando.Command{
     const confirmation = async() => {
       message.reply("Please wait while we prepare for your role.")
       //image generation
-      var responseurl;
+      var responseurl = {};
       const canvas = Canvas.createCanvas(1528,2375)
       const ctx = canvas.getContext('2d')
       const loadimage = await Canvas.loadImage(image)
@@ -247,6 +247,12 @@ module.exports = class TradingCommand extends commando.Command{
       const background = await Canvas.loadImage(`${__dirname}/${cardTemplate}`)
       await ctx.drawImage(loadimage, 88 , 250 , newwidth , newheight)
       await ctx.drawImage(background, 0 , 0 ,1528, 2375)
+      ctx.textAlign = `center`;
+      ctx.textBaseline = `top`;
+      ctx.font = '90px Noto';
+      await ctx.fillText(name, 764, 70 , 1325)
+      ctx.font = '70px Noto';
+      await ctx.fillText(desc, 791, 1728, 946)
       const buffer = canvas.toBuffer()
       //cdn usage
       var imagekit = new ImageKit({
@@ -257,8 +263,9 @@ module.exports = class TradingCommand extends commando.Command{
       await imagekit.upload({
         file: buffer,
         fileName: "default.png"
-      }).then((response) =>{
+      }).then(async(response) =>{
         responseurl = response.url
+        await responseurl
       }).catch(error =>{
         console.log(error)
         return message.reply("I am having some trouble uploading your image. Please try again later!")
