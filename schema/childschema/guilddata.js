@@ -12,6 +12,9 @@ const staffPing = mongoose.Schema({
     },
     roleLimit:{
         type: String
+    },
+    updatechannel:{
+        type: String
     }
 })
 
