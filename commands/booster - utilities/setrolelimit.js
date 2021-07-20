@@ -5,9 +5,10 @@ module.exports = class UtilityCommand extends commando.Command{
     super(client, {
       name: "setrolelimit",
       description: "Sets the role limit for booster custom roles",
-      group: 'trading',
+      group: 'boosterutilities',
       memberName: "setrolelimit",
-      argsType: 'single'
+      argsType: 'single',
+      userPermissions: ['ADMINISTRATOR']
     })
   }
   async run(message, args){

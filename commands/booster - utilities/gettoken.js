@@ -9,6 +9,7 @@ module.exports = class UtilityCommand extends commando.Command {
             description: 'gets the token for the booster',
             group: 'boosterutilities',
             memberName: 'gettoken',
+            guildOnly: true,
         })
     }
     async run(message){

@@ -2,12 +2,12 @@ const commando = require('discord.js-commando')
 const staffPing = require('../../schema/childschema/guilddata.js')
 const claimedSchema = require('../../schema/childschema/claimedroleschema.js')
 const { MessageEmbed } = require('discord.js')
-module.exports = class TradingCommand extends commando.Command{
+module.exports = class UtilityCommand extends commando.Command{
   constructor(client){
     super(client,{
       name: 'owner',
       description: 'Checks the custom role owner',
-      group: 'trading',
+      group: 'boosterutilities',
       memberName: 'owner',
       argsType: 'multiple',
       guildOnly: true

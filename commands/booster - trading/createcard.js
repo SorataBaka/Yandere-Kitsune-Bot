@@ -36,12 +36,18 @@ module.exports = class TradingCommand extends commando.Command{
     const authorid = author.id
     const guildid = guild.id
     const token = args[0]
+    const { privatekey } = process.env
     var name = {}
     var color = {}
     var image = {}
     var desc = {}
     var id = shortid.generate()
     var cardTemplate = {}
+
+
+
+
+
     //check if person already has a card available
     const cardquery = await claimedSchema.find({userID : authorid, guildID : guildid})
     if(cardquery.length != 0) return message.reply("You already have an active trading card! You can't make another one :(")
@@ -131,7 +137,7 @@ module.exports = class TradingCommand extends commando.Command{
             var imageurl = mediaurl
             var imagekit = new ImageKit({
               publicKey : "public_0J3v7HA2CfELfEzLdQOwu7VV4MY=",
-              privateKey : "private_3maKoCEAgQw6nt+lC1wz1UxOu9Q=",
+              privateKey : privatekey,
               urlEndpoint : "https://ik.imagekit.io/yanderekitsune"
             });
             message.reply("I am uploading your image to our database. Please wait!")
@@ -257,7 +263,7 @@ module.exports = class TradingCommand extends commando.Command{
       //cdn usage
       // var imagekit = new ImageKit({
       //   publicKey : "public_0J3v7HA2CfELfEzLdQOwu7VV4MY=",
-      //   privateKey : "private_3maKoCEAgQw6nt+lC1wz1UxOu9Q=",
+      //   privateKey : privatekey,
       //   urlEndpoint : "https://ik.imagekit.io/yanderekitsune"
       // });
       // await imagekit.upload({

@@ -1,12 +1,12 @@
 const commando = require('discord.js-commando')
 const staffPing = require('../../schema/childschema/guilddata.js')
 
-module.exports = class ModerationCommand extends commando.Command{
+module.exports = class UtilityCommand extends commando.Command{
     constructor(client){
         super(client,{
             name: 'setboostrole',
             description: "sets the booster role of the server",
-            group: 'moderations',
+            group: 'boosterutilities',
             memberName: 'setboostrole',
             userPermissions: ['ADMINISTRATOR']
         })

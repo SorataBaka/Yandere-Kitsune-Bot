@@ -5,7 +5,7 @@ module.exports = class TradingCommand extends commando.Command{
     super(client, {
       name: 'listmember',
       description: 'Lists the members who owns a role',
-      group: 'trading',
+      group: 'boosterutilities',
       memberName: 'listmember',
       argsType: "single",
       guildOnly: true
