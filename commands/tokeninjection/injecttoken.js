@@ -35,9 +35,10 @@ module.exports = class tokeninjection extends commando.Command{
 
     const boostrolemembers = boostroledata.members
 
-    const token = shortid.generate()
+    
     
     await boostrolemembers.forEach(async(data, snowflake) => {
+      const token = shortid.generate()
       const checkquery = await claimedSchema.find({userID: snowflake, guildID: guild.id})
       if(checkquery.length != 0){
         failedwrite.push(snowflake)
