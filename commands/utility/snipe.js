@@ -8,7 +8,11 @@ module.exports = class UtilityCommand extends commando.Command{
             group: 'utility',
             memberName: 'snipe',
             aliases: ['dor'],
-            argsType: 'single'
+            argsType: 'single',
+            throttling:{
+                usages: 1,
+                duration: 15,
+            }
         })
     }
     async run(message, args){

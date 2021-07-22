@@ -89,8 +89,8 @@ client.on('ready', async message => {
             })
         })
         setInterval(function(){
-            client.snipes.clear()
-        }, 3600000)
+            client.snipes.clear().catch()
+        }, 20000)
 
 
 
