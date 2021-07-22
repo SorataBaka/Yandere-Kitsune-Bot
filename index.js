@@ -80,9 +80,6 @@ client.on('ready', async message => {
                 .addField(`You can look at the latest commit here: `, commiturl)
                 .setThumbnail("https://images-ext-2.discordapp.net/external/2_FCdwQ-2ROkGxuLzIfMGrDjrdVrPypK1BiNbvkyvFA/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/831950774849896509/ead9b03d551f98f2e62eacba758f298f.webp?width=671&height=671")
                 .setColor("#FF0000")
-            
-
-
             client.guilds.cache.forEach(async (data, snowflake) =>{
                 const query = await staffPing.find({guildID: snowflake})
                 if(query.length == 0) return
@@ -90,9 +87,10 @@ client.on('ready', async message => {
                 if(!channelid) return
                 client.guilds.cache.get(snowflake).channels.cache.get(channelid).send(commitembed)
             })
-
-            
         })
+        setInterval(function(){
+            client.snipes.clear()
+        }, 3600000)
 
 
 

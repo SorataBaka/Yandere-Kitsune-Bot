@@ -7,13 +7,21 @@ module.exports = class UtilityCommand extends commando.Command{
             description: 'Re-sends deleted messages',
             group: 'utility',
             memberName: 'snipe',
-            aliases: ['dor']
+            aliases: ['dor'],
+            argsType: 'single'
         })
     }
-    async run(message){
+    async run(message, args){
         const { client } = message
-        console.log(client.snipes)
-        const snipeMessage = client.snipes.get(message.channel.id)
+        var counter;
+        if(args.length == 0){
+            counter = 1
+        }else{
+            if(isNaN(args[0]))return message.reply("Please only provide a number")
+            counter = args[0]
+        }
+
+        const snipeMessage = client.snipes.get(message.channel.id + counter)
         if(snipeMessage !== undefined){
             const snipeEmbed = new MessageEmbed()
                 .setTitle('Snipe!')
