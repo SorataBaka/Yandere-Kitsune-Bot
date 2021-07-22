@@ -88,9 +88,6 @@ client.on('ready', async message => {
                 client.guilds.cache.get(snowflake).channels.cache.get(channelid).send(commitembed)
             })
         })
-        setInterval(function(){
-            client.snipes.clear().catch()
-        }, 20000)
 
 
 

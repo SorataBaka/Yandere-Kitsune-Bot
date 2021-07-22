@@ -11,7 +11,7 @@ module.exports = class UtilityCommand extends commando.Command{
             argsType: 'single',
             throttling:{
                 usages: 1,
-                duration: 15,
+                duration: 10,
             }
         })
     }
