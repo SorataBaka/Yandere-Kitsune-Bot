@@ -17,15 +17,7 @@ module.exports = class UtilityCommand extends commando.Command{
     }
     async run(message, args){
         const { client } = message
-        var counter;
-        if(args.length == 0){
-            counter = client.snipes.size
-        }else{
-            if(isNaN(args[0]))return message.reply("Please only provide a number")
-            counter = client.snipes.size - args[0] + 1
-        }
-
-        const snipeMessage = client.snipes.get(message.channel.id + counter)
+        const snipeMessage = client.snipes.get(message.channel.id)
         if(snipeMessage !== undefined){
             const snipeEmbed = new MessageEmbed()
                 .setTitle('Snipe!')
