@@ -18,21 +18,13 @@ module.exports = async(client, message)=>{
     const deleteCallback = (deletedid) => {
             setTimeout(async function () {
             const deleted = await client.snipes.get(message.channel.id)
-            // deleted.forEach(data => {
-            //     console.log(data)
-            //     if(data.messageid == deletedid){
-            //         const index = deleted.indexOf({messageid: deletedid})
-            //         console.log(index)
-            //         deleted.splice(index, 1)
-            //     }
-            // })
             for(var i = 0; i < deleted.length; i++){
                 if(deleted[i].messageid == deletedid){
                     deleted.splice(i, 1)
                     console.log(deleted)
                 }
             }
-        }, 10000)
+        }, 30000)
     }
 
     deleteCallback(message.id)

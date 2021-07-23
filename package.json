@@ -17,13 +17,13 @@
     "path": "^0.12.7",
     "shortid": "^2.2.16"
   },
-  "name": "akame",
+  "name": "yandere-kitsune",
   "description": "Multipurpose Discord Android/IOS integrated Bot",
-  "version": "2.0.0",
-  "main": "index.js",
+  "version": "2.5.0",
+  "main": "sharding.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node sharding.js",
+    "dev": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -40,5 +40,9 @@
   "bugs": {
     "url": "https://github.com/SorataBaka/Akame/issues"
   },
-  "homepage": "https://github.com/SorataBaka/Akame#readme"
+  "homepage": "https://github.com/SorataBaka/Akame#readme",
+  "directories": {
+    "doc": "doc"
+  },
+  "devDependencies": {}
 }
