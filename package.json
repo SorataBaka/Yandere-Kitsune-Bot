@@ -4,7 +4,6 @@
     "bluebird": "^3.5.1",
     "canvas": "^2.8.0",
     "ci": "^2.1.1",
-    "discord-buttons": "^3.2.1",
     "discord-image-generation": "^1.4.9",
     "discord.js": "^12.5.3",
     "discord.js-commando": "^0.12.3",
@@ -43,6 +42,5 @@
   "homepage": "https://github.com/SorataBaka/Akame#readme",
   "directories": {
     "doc": "doc"
-  },
-  "devDependencies": {}
+  }
 }
