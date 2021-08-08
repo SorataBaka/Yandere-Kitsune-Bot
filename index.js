@@ -31,7 +31,8 @@ server.all('/', (req, res) => {
 //login to discord client
 client.login(token)
 client.on('ready', async message => {
-    server.listen(3000, async() => {
+    const PORT = process.env.PORT
+    server.listen(PORT, async() => {
         client.user.setPresence({activity: {name: "Slashing ようかいs", type: "COMPETING"}, status: 'dnd'})
             .then(console.log)
             .catch(console.error)
