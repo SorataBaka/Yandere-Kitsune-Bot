@@ -3,11 +3,11 @@ const { MessageAttachment, MessageEmbed } = require("discord.js")
 const axios = require('axios')
 module.exports = async(client, message)=>{
    const content = message.content
-   const messageCall = await axios.get("http://40.65.136.244:10000/generatewords")
+   const messageCall = await axios.get("https://yandere-kitsune-api.herokuapp.com/generatewords")
    if(!messageCall) return
    const newMessage = messageCall.data.Word
    
-   const imageCall = await axios.get("http://40.65.136.244:10000/image")
+   const imageCall = await axios.get("https://yandere-kitsune-api.herokuapp.com/image")
    if(!imageCall) return
    const imageArray = imageCall.data.imageList
    const randomPick = Math.floor(Math.random() * imageArray.length)
@@ -16,7 +16,7 @@ module.exports = async(client, message)=>{
    if(content.toLowerCase() == "kitsu sayang"){
         const embed = new MessageEmbed()
             .setTitle(newMessage + " - kitsu")
-            .setImage(`http://40.65.136.244:10000/image/${imageName}`)
+            .setImage(`https://yandere-kitsune-api.herokuapp.com/image/${imageName}`)
             .setColor("#FF7A7A")
             .setTimestamp()
         return message.channel.send(embed)
