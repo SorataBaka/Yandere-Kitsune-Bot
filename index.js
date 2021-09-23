@@ -58,6 +58,7 @@ client.on('ready', async message => {
                 ['utility', "Server Utilities"],
                 ['boosterutilities', "Utilities for Boosters"],
                 ['trading', "Role trading system"],
+                ['music', "Music commands"]
             ])
             .registerCommandsIn(path.join(__dirname, './commands'))
             .registerDefaults()

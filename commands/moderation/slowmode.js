@@ -8,7 +8,7 @@ module.exports = class ModerationCommand extends commando.Command {
             group:'moderations',
             memberName: 'slowmode',
             aliases: ['slowmode', 'slow', 'sm', 'slw'],
-            userPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS', 'ADMINISTRATOR'],
+            userPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS'],
             argsType: 'multiple',
         })
     }
