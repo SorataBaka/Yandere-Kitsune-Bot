@@ -4,7 +4,7 @@ module.exports = async(client, message)=>{
     if(!channelMap){
         client.snipes.set(message.channel.id, [])
     }
-    client.snipes.get(message.channel.id).push({
+    client.snipes.get(message.channel.id).unshift({
         messageid: message.id,
         data: {
             content: message.content,
