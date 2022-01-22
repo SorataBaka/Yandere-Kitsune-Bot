@@ -13,7 +13,7 @@
     "ffmpeg-static": "^4.4.0",
     "imagekit": "^3.2.0",
     "mongoose": "^5.12.13",
-    "nanoid": "^3.1.23",
+    "nanoid": "^3.1.31",
     "nodemon": "^2.0.12",
     "path": "^0.12.7",
     "shortid": "^2.2.16",
