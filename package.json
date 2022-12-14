@@ -8,7 +8,7 @@
     "discord.js": "^12.5.3",
     "discord.js-commando": "^0.12.3",
     "dotenv": "^10.0.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "ffmpeg": "^0.0.4",
     "ffmpeg-static": "^4.4.0",
     "imagekit": "^3.2.0",
